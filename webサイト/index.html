@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>共通テストまであと... | Death Note Countdown</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial Black', sans-serif;
+            background: url('img/deathnote.gif') no-repeat center center fixed; /* ノートページ風背景 */
+            background-size: cover;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+        .overlay {
+            background: rgba(0, 0, 0, 0.7); /* 暗めオーバーレイでDeath Note感 */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .logo {
+            width: 400px;
+            margin-bottom: 20px;
+        }
+        .countdown {
+            font-size: 60px;
+            letter-spacing: 10px;
+            color: #ff0000; /* 血のような赤 */
+            text-shadow: 0 0 10px #ff0000;
+            margin: 20px;
+        }
+        .ryuk {
+            position: absolute;
+            right: 50px;
+            bottom: 50px;
+            width: 40%;
+            opacity: 0.8;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+        h1 {
+            font-size: 40px;
+            margin: 10px;
+            color: #fff;
+            text-shadow: 2px 2px 10px black;
+        }
+        p {
+            font-size: 24px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <img src="img/Death-Note-Logo.png" alt="Death Note Logo" class="logo">
+        <h1>共通テストまであと...</h1>
+        <div class="countdown" id="countdown">計算中...</div>
+        <p>2026年1月17日（土）9:30開始まで</p>
+        <p>お前はもう...受験生だ。</p>
+    </div>
+    <img src="img/ryuku1.png" alt="Ryuk" class="ryuk">
+
+    <script>
+        // 共通テスト開始日時（2026年1月17日 9:30:00）
+        const examDate = new Date('2026-01-17T09:30:00');
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = examDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').innerHTML = '本番開始！がんばれ！！';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = 
+                `${days}日 ${hours}時間 ${minutes}分 ${seconds}秒`;
+        }
+
+        // 1秒ごとに更新
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // 初回表示
+    </script>
+</body>
+</html>
